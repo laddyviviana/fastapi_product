@@ -2,14 +2,14 @@ from fastapi import HTTPException, status
 from sqlmodel import select
 
 from app.db import SessionDep
-from app.task.models import Task
-from app.task.schemas import TaskCreate, TaskUpdate
+from app.product.models import Product
+from app.product.schemas import ProductCreate, ProductUpdate
 
 
 
 
 class TaskService:
-    no_task:str = "Task doesn't exits"
+    no_product:str = "Task doesn't exits"
     # CREATE
     # ----------------------
     def create_task(self, plan_data: TaskCreate, session: SessionDep):
@@ -23,7 +23,7 @@ class TaskService:
     # ----------------------
     def get_task(self, plan_id: int, session: SessionDep):
         task_db = session.get(Task, plan_id)
-        if not task_db:
+        if not product_db:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail=self.no_task
             )
