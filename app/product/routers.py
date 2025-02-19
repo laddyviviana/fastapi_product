@@ -2,10 +2,11 @@
 from fastapi import APIRouter, status
 
 from app.db import SessionDep
-from app.product.models import product
+from app.product.models import Product
 from app.product.schemas import ProductCreate, ProductUpdate
 from app.product.service import ProductService
 
+print(Product)
 router = APIRouter()
 service = ProductService()
 

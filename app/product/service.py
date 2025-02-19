@@ -2,17 +2,17 @@ from fastapi import HTTPException, status
 from sqlmodel import select
 
 from app.db import SessionDep
-from app.task.models import Task
-from app.task.schemas import TaskCreate, TaskUpdate
+from app.product.models import Product
+from app.product.schemas import ProductCreate, ProductUpdate
 
 
 
 
 class ProductService:
-    no_task:str = "Product doesn't exits"
+    no_product:str = "Product doesn't exits"
     # CREATE
     # ----------------------
-    def create_product(self, plan_data: ProducCreate, session: SessionDep):
+    def create_product(self, plan_data: ProductCreate, session: SessionDep):
         product_db = Product.model_validate(plan_data.model_dump())
         session.add(product_db)
         session.commit()
@@ -27,7 +27,7 @@ class ProductService:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail=self.no_product
             )
-        return task_db
+        return product_db
 
     # UPDATE
     # ----------------------
@@ -46,7 +46,7 @@ class ProductService:
 
     # GET ALL PLANS
     # ----------------------
-    def get_produts(self, session: SessionDep):
+    def get_products(self, session: SessionDep):
         return session.exec(select(Product)).all()
 
     # DELETE

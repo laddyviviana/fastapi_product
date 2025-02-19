@@ -1,17 +1,22 @@
 
-from sqlmodel import Field, Relationship, Session, SQLModel, select
+from sqlmodel import Field, SQLModel
 from typing import Optional
 
 class ProductBase(SQLModel):
-    title: str = Field(default=None)
+    title: str
     price: int = 0
-    description: str | None = Field(default=None)
-    category: str | None = Field(default=None)
-    image: str | None = Field(default=None)
+    description: Optional[str] = None
+    category: Optional[str] = None
+    image: Optional[str] = None
 
-# Modelo para crear una nuevo producto (hereda de ProductBase)
+# Modelo para crear un nuevo producto
 class ProductCreate(ProductBase):
     pass
 
+# Modelo para actualizar un producto
 class ProductUpdate(ProductBase):
     pass
+
+# Modelo para leer un producto con ID
+class ProductRead(ProductBase):
+    id: int

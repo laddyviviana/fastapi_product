@@ -5,6 +5,8 @@ from fastapi.responses import HTMLResponse
 from app.db import create_db_and_tables
 
 from app.task import routers as Task
+from app.product.routers import router as ProductRouter
+
 app = FastAPI()
 
 version = "v1"
@@ -38,6 +40,7 @@ app = FastAPI(
     ],
 )
 app.include_router(Task.router, prefix="/tasks", tags=["Tasks"])
+app.include_router(ProductRouter, prefix="/products", tags=["Products"])
 
 @app.get("/", response_class=HTMLResponse)
 async def read_items():
@@ -51,7 +54,10 @@ async def read_items():
         </body>
     </html>
     """
+print(app.routes)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
+
+print("Routers cargados:", app.routes)
