@@ -5,7 +5,9 @@ from fastapi.responses import HTMLResponse
 from app.db import create_db_and_tables
 
 from app.task import routers as Task
-from app.product.routers import router as ProductRouter
+#from app.products import router as ProductRouter
+#from app.products_category import router as ProductCategory
+from app.customers import routers as Customer
 
 app = FastAPI()
 
@@ -28,9 +30,9 @@ app = FastAPI(
     version=version,
     license_info={"name": "MIT License", "url": "https://opensource.org/license/mit"},
     contact={
-        "name": "Henry Alejandro Taby Zenteno",
-        "url": "https://github.com/henrytaby",
-        "email": "henry.taby@gmail.com",
+        "name": "Mioni Cruz",
+        "url": "https://github.com/laddyviviana",
+        "email": "m.cruz.lady@gmail.com",
     },
     openapi_tags=[
         {
@@ -40,7 +42,10 @@ app = FastAPI(
     ],
 )
 app.include_router(Task.router, prefix="/tasks", tags=["Tasks"])
-app.include_router(ProductRouter, prefix="/products", tags=["Products"])
+#app.include_router(ProductRouter, prefix="/products", tags=["Products"])
+
+#app.include_router(ProductCategory.router, prefix="/products_category", tags=["Products Category"])
+app.include_router(Customer.router, prefix="/customers", tags=["Customers"])
 
 @app.get("/", response_class=HTMLResponse)
 async def read_items():
